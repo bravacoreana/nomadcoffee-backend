@@ -1,13 +1,24 @@
-import { gql } from "apollo-server";
+import { gql } from "apollo-server-core";
 
 export default gql`
   type User {
     id: Int!
-    firstName: String!
-    lastName: String!
     username: String!
     email: String!
-    password: String!
+    name: String!
+    location: String
+    avatarUrl: String
+    githubUsername: String
+    createdAt: String!
+    updatedAt: String!
+  }
+  type Mutation {
+    createAccount(
+      username: String!
+      email: String!
+      name: String!
+      password: String!
+    ): MutationResponse!
   }
 
   type Query {
