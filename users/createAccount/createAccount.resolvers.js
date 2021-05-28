@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import client from "../client";
+import client from "../../client";
 
 export default {
   Mutation: {
@@ -21,7 +21,6 @@ export default {
         if (existingUser) {
           throw new Error("This username or email is not available.");
         }
-
         const hashedPassword = await bcrypt.hash(password, 10);
 
         await client.user.create({
