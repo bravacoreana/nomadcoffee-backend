@@ -7,3 +7,7 @@ I don't drink coffee, I take tea, my dear.
 - [x] Login
 - [x] Edit Profile
 - [x] Change Avatar(Image Upload)
+- [x] Follow User
+- [x] Unfollor User
+- [x] See Followers and See Following with Pagination
+- [x] Computed Fields

@@ -11,21 +11,21 @@ const resolverFunction = async (
     name,
     password: newPassword,
     location,
-    avatarUrl,
+    avatar,
     githubUsername,
   },
   { loggedInUser }
 ) => {
-  let avatar = null;
-  if (avatarUrl) {
-    const { filename, createReadStream } = await avatarUrl;
+  let avatarUrl = null;
+  if (avatar) {
+    const { filename, createReadStream } = await avatar;
     const newFilename = `${loggedInUser.id}-${Date.now()}-${filename}`;
     const readStream = createReadStream();
     const writeStream = createWriteStream(
       process.cwd() + "/uploads/" + loggedInUser.id + newFilename
     );
     readStream.pipe(writeStream);
-    avatar = `http://localhost:${process.env.PORT}/static/${newFilename}`;
+    avatarUrl = `http://localhost:${process.env.PORT}/static/${newFilename}`;
   }
 
   let hashedPassword = null;
@@ -45,7 +45,7 @@ const resolverFunction = async (
       location,
       githubUsername,
       ...(hashedPassword && { password: hashedPassword }),
-      ...(avatar && { avatarUrl: avatar }),
+      ...(avatar && { avatar: avatar }),
     },
   });
   if (updatedUser.id) {

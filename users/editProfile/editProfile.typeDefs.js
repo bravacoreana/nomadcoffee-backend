@@ -8,7 +8,7 @@ export default gql`
       name: String
       password: String
       location: String
-      avatarUrl: Upload
+      avatar: Upload
       githubUsername: String
     ): MutationResponse!
   }

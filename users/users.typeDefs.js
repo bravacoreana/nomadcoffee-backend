@@ -7,9 +7,11 @@ export default gql`
     email: String!
     name: String!
     location: String
-    avatarUrl: String
+    avatar: String
     githubUsername: String
     createdAt: String!
     updatedAt: String!
+    following(page: Int!): [User]
+    followers(page: Int!): [User]
   }
 `;
