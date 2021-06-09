@@ -14,7 +14,7 @@ export const getUser = async (token) => {
       return null;
     }
   } catch (error) {
-    console.log("GETUSER: ", error);
+    console.log("[getUser]", error);
     return null;
   }
 };
@@ -22,10 +22,15 @@ export const getUser = async (token) => {
 export const protectedResolver =
   (ourResolver) => (root, args, context, info) => {
     if (!context.loggedInUser) {
-      return {
-        ok: false,
-        error: "Please log in to perform this action.",
-      };
+      const query = info.operation.operation === "query";
+      if (query) {
+        return null;
+      } else {
+        return {
+          ok: false,
+          error: "please log in to perform this action",
+        };
+      }
     }
     return ourResolver(root, args, context, info);
   };

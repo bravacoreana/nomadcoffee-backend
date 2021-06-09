@@ -4,15 +4,19 @@ export default gql`
   type CoffeeShopPhoto {
     id: Int!
     url: String!
-    shop: CoffeeShop
+    shop: CoffeeShop!
+    createdAt: String!
+    updatedAt: String!
   }
   type CoffeeShop {
     id: Int!
     name: String!
     latitude: String!
     longitude: String!
-    user: User
+    user: User!
     photos: [CoffeeShopPhoto]
     categories: [Category]
+    createdAt: String!
+    updatedAt: String!
   }
 `;

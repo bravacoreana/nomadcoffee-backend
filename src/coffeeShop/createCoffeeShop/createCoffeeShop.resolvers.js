@@ -1,7 +1,8 @@
 import client from "../../client";
-import { createWriteStream } from "fs";
+// import { createWriteStream } from "fs";
 import { protectedResolver } from "../../users/users.utilities";
 import { createSlug } from "../coffeeShop.utilities";
+import { uploadPhoto } from "../../common/shared.utilities";
 
 export default {
   Mutation: {
@@ -45,19 +46,34 @@ export default {
           if (photos) {
             await Promise.all(
               photos.map(async (photo) => {
-                const { filename, createReadStream } = await photo;
-                const readStream = createReadStream();
-                const writeStream = createWriteStream(
-                  process.cwd() + "/uploads/" + filename
+                let photoUrl = await uploadPhoto(
+                  photo,
+                  loggedInUser.id,
+                  "coffeeshops"
                 );
-                readStream.pipe(writeStream);
-
                 photosObj.push({
-                  url: filename,
+                  url: photoUrl,
                 });
               })
             );
           }
+
+          // if (photos) {
+          //   await Promise.all(
+          //     photos.map(async (photo) => {
+          //       const { filename, createReadStream } = await photo;
+          //       const readStream = createReadStream();
+          //       const writeStream = createWriteStream(
+          //         process.cwd() + "/uploads/" + filename
+          //       );
+          //       readStream.pipe(writeStream);
+
+          //       photosObj.push({
+          //         url: filename,
+          //       });
+          //     })
+          //   );
+          // }
 
           const createCoffeeShop = await client.coffeeShop.create({
             data: {
