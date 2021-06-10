@@ -14,7 +14,10 @@ const resolveFunction = async (
 
     const shop = await client.coffeeShop.findFirst({
       where: { id },
-      include: { categories: { select: { slug: true } } },
+      include: {
+        categories: { select: { slug: true } },
+        photos: { select: { url: true } },
+      },
     });
 
     if (!shop) {
@@ -55,23 +58,20 @@ const resolveFunction = async (
         name,
         latitude,
         longitude,
-        categories: {
-          disconnect: shop.categories,
-          connectOrCreate: categoriesObj,
-        },
-        // photos: {
-        //   disconnect: shop.photos,
-        //   connect: photosObj,
-        // },
+        ...(categoriesObj.length > 0 && {
+          categories: {
+            disconnect: shop.categories,
+            connectOrCreate: categoriesObj,
+          },
+        }),
+        ...(photosObj.length > 0 && {
+          photos: {
+            deleteMany: {},
+            create: photosObj,
+          },
+        }),
       },
     });
-    // console.log(photosObj);
-    // await client.coffeeShopPhoto.delete({
-    //   where: { photo: photosObj },
-    //   select: {
-    //     url: true,
-    //   },
-    // });
 
     return {
       ok: true,
