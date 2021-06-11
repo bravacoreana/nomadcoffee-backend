@@ -1,5 +1,6 @@
 require("dotenv").config();
 import express from "express";
+import cors from "cors";
 import logger from "morgan";
 import { ApolloServer } from "apollo-server-express";
 import { getUser, protectResolver } from "./users/users.utilities";
@@ -11,6 +12,7 @@ const apollo = new ApolloServer({
   resolvers,
   playground: false,
   introspection: false,
+
   context: async ({ req }) => {
     return {
       loggedInUser: await getUser(req.headers.token),
@@ -21,6 +23,7 @@ const apollo = new ApolloServer({
 
 const app = express();
 app.use(logger("tiny"));
+app.use(cors());
 app.use("/static", express.static("uploads"));
 apollo.applyMiddleware({ app });
 
