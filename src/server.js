@@ -9,8 +9,8 @@ const PORT = process.env.PORT;
 const apollo = new ApolloServer({
   typeDefs,
   resolvers,
-  playground: false,
-  introspection: false,
+  playground: true,
+  introspection: true,
   context: async ({ req }) => {
     return {
       loggedInUser: await getUser(req.headers.token),
@@ -20,7 +20,7 @@ const apollo = new ApolloServer({
 });
 
 const corsOptions = {
-  origin: "https://nomadcafe.netlify.app/",
+  origin: "https://nomadcafe.netlify.app/" || `http://localhost:${PORT}`,
   credentials: true,
 };
 
@@ -28,9 +28,9 @@ const app = express();
 apollo.applyMiddleware({ app });
 app.use(cors(corsOptions));
 app.use("/static", express.static("uploads"));
-app.get("/add", cors(corsOptions), function (req, res, next) {
-  res.json({ msg: "This is CORS-enabled for a whitelisted domain." });
-});
+// app.get("/add", cors(corsOptions), function (req, res, next) {
+//   res.json({ msg: "This is CORS-enabled for a whitelisted domain." });
+// });
 app.options("*", cors());
 
 app.listen({ port: PORT }, () => {
