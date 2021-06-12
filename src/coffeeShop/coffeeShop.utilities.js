@@ -1,7 +1,3 @@
 export const createSlug = (name) => {
-  return name
-    .toLowerCase()
-    .trim()
-    .replace(/\s{2,}/gi, " ")
-    .replaceAll(" ", "-");
+  return name.trim().toLowerCase().replace(/\s+/g, "-");
 };
