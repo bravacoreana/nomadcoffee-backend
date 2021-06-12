@@ -56,6 +56,7 @@ export default {
               })
             );
           }
+
           const createCoffeeShop = await client.coffeeShop.create({
             data: {
               name,
