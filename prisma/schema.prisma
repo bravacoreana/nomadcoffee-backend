@@ -18,6 +18,7 @@ model User {
   location       String?
   password       String
   avatar         String?
+  bio            String?
   followers      User[]       @relation("FollowRelation", references: [id])
   following      User[]       @relation("FollowRelation", references: [id])
   githubUsername String?      @unique
