@@ -27,5 +27,25 @@ export default {
           createdAt: "desc",
         },
       }),
+    searchShopName: async (_, { keyword }) =>
+      await client.coffeeShop.findMany({
+        where: {
+          name: {
+            contains: keyword.toLowerCase(),
+          },
+        },
+      }),
+    searchCategories: async (_, { keyword }) =>
+      await client.coffeeShop.findMany({
+        where: {
+          categories: {
+            some: {
+              name: {
+                contains: keyword.toLowerCase(),
+              },
+            },
+          },
+        },
+      }),
   },
 };
