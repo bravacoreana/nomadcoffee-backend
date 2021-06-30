@@ -23,7 +23,8 @@ model User {
   following      User[]       @relation("FollowRelation", references: [id])
   githubUsername String?      @unique
   userId         Int?
-  CoffeeShop     CoffeeShop[]
+  shops          CoffeeShop[]
+  likes          Like[]
   createdAt      DateTime     @default(now())
   updatedAt      DateTime     @updatedAt
 }
@@ -51,12 +52,26 @@ model CoffeeShop {
   name       String
   latitude   String
   longitude  String
+  caption    String?
   user       User              @relation(fields: [userId], references: [id])
   userId     Int
   photos     CoffeeShopPhoto[]
   categories Category[]
   createdAt  DateTime          @default(now())
   updatedAt  DateTime          @updatedAt
+  likes      Like[]
 
   @@unique([name, latitude, longitude])
+}
+
+model Like {
+  id        Int        @id @default(autoincrement())
+  shop      CoffeeShop @relation(fields: [shopId], references: [id])
+  shopId    Int
+  user      User       @relation(fields: [userId], references: [id])
+  userId    Int
+  createdAt DateTime   @default(now())
+  updatedAt DateTime   @updatedAt
+
+  @@unique([shopId, userId])
 }
