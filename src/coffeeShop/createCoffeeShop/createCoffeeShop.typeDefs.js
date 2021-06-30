@@ -7,6 +7,7 @@ export default gql`
       latitude: String!
       longitude: String!
       photos: [Upload]
+      caption: String
       categories: [String]
     ): MutationResponse!
   }
