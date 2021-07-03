@@ -10,8 +10,8 @@ export default {
           },
         })
         .shops({
-          take: 5,
-          skip: (page - 1) * 5,
+          take: 6,
+          skip: (page - 1) * 6,
           orderBy: {
             updatedAt: "desc",
           },

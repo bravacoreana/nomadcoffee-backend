@@ -8,7 +8,7 @@ export default {
     createCoffeeShop: protectedResolver(
       async (
         _,
-        { name, latitude, longitude, photos, captions, categories },
+        { name, latitude, longitude, photos, caption, categories },
         { loggedInUser }
       ) => {
         try {
@@ -33,7 +33,14 @@ export default {
           }
 
           if (categories) {
-            categories.map((name) => {
+            let categoryToArray = null;
+            if (categories[0].includes(",")) {
+              categoryToArray = categories[0].split(",");
+            } else {
+              categoryToArray = categories;
+            }
+
+            categoryToArray.map((name) => {
               const slug = createSlug(name);
               categoriesObj.push({
                 where: { name },

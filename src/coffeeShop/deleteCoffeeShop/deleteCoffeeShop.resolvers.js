@@ -18,8 +18,6 @@ export default {
           error: "Cafe doesn't exist",
         };
       } else if (cafe.userId !== loggedInUser.id) {
-        console.log(cafe.userId);
-        console.log(loggedInUser.id);
         return {
           ok: false,
           error: "Not authorised",

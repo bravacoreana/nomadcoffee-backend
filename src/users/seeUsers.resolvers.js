@@ -4,8 +4,8 @@ export default {
   User: {
     followers: async ({ id }, { page = 1 }) =>
       await client.user.findUnique({ where: { id } }).followers({
-        take: 5,
-        skip: (page - 1) * 5,
+        take: 6,
+        skip: (page - 1) * 6,
         orderBy: {
           name: "asc",
         },
@@ -13,8 +13,8 @@ export default {
 
     following: async ({ id }, { page = 1 }) =>
       await client.user.findUnique({ where: { id } }).following({
-        take: 5,
-        skip: (page - 1) * 5,
+        take: 6,
+        skip: (page - 1) * 6,
         orderBy: {
           name: "asc",
         },
