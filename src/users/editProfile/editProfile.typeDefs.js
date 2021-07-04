@@ -10,6 +10,7 @@ export default gql`
       location: String
       avatar: Upload
       githubUsername: String
+      bio: String
     ): MutationResponse
   }
 `;
