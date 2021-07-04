@@ -11,9 +11,13 @@ export default gql`
     bio: String
     githubUsername: String
     isMe: Boolean!
+    isFollowing: Boolean!
+    shops: [CoffeeShop]
+    totalFollowing: Int!
+    totalFollowers: Int!
     createdAt: String!
     updatedAt: String!
-    following(page: Int!): [User]
-    followers(page: Int!): [User]
+    following: [User]
+    followers: [User]
   }
 `;
