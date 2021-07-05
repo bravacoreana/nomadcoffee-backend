@@ -33,15 +33,14 @@ export default {
           }
 
           if (categories) {
-            let categoryToArray = null;
-            if (categories[0].includes(",")) {
-              categoryToArray = categories[0].split(",");
-            } else {
-              categoryToArray = categories;
-            }
-
-            categoryToArray.map((name) => {
-              const slug = createSlug(name);
+            // let categoryToArray = null;
+            // if (categories[0].includes(",")) {
+            //   categoryToArray = categories[0].split(",");
+            // } else {
+            //   categoryToArray = categories;
+            // }
+            categories.map((name) => {
+              const slug = createSlug(name.trim());
               categoriesObj.push({
                 where: { name },
                 create: { name, slug },
